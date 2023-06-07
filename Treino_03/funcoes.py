@@ -1,31 +1,56 @@
 import sqlite3
 
+def mostra_tabela_categoria(conexao):
+    cursor = conexao.cursor()
+    sql = 'SELECT id, nome FROM categoria'
+    categorias = cursor.execute(sql)
+    print("Categorias disponíveis:")
+    for categoria in categorias:
+        print("ID:", categoria[0], "/Categoria:", categoria[1])
+    conexao.commit()
+
+def mostra_tabela_produto(conexao):
+    cursor = conexao.cursor()
+    sql = 'SELECT id, nome, categoria_id FROM produto'
+    produto = cursor.execute(sql)
+    print("Produtos disponíveis:")
+    for produto in produto:
+        print("ID:", produto[0], "/Produto:", produto[1], "/Categoria ID:", produto[2])
+    conexao.commit()
+
+def opcao_disponinel_por_nivel(acesso):
+    opcao = ['0:Sair', '1:Visualizar as categorias', '2:Visualizar os produtos', 
+    '3:Inserir categoria', '4:Inserir produto', '5:Atualizar categoria',
+    '6:Atualizar produto', '7:Remover categoria', '8:Remover produto']
+    
+    for opcao in opcao[0:acesso]:
+                print(opcao)
+    
+    selecao = int(input('Digite a opção dezejada:'))
+    return selecao
+
 #Menu interativo usuario nivel_01.
 def menu_user_nivel01(conexao):
     while True:
-        print('''
-        0) Sair
-        1) Inserir categoria
-        2) Inserir produto
-        3) Atualizar categoria
-        4) Atualizar produto
-        5) Remover categoria
-        6) Remover produto
-        ''')
-        opcao = int(input('Digite a opção desejada:'))
+        print('Opções disponíveis para seu nível de acesso:')
+        opcao = opcao_disponinel_por_nivel(9)
         if opcao == 0:
             break
         elif opcao == 1:
-            inseri_categoria(conexao)
+            mostra_tabela_categoria(conexao)
         elif opcao == 2:
-            inseri_produto(conexao)
+            mostra_tabela_produto(conexao)
         elif opcao == 3:
-            atualiza_categoria(conexao)
+            inseri_categoria(conexao)
         elif opcao == 4:
-            atualiza_produto(conexao)
+            inseri_produto(conexao)
         elif opcao == 5:
-            remove_categoria(conexao)
+            atualiza_categoria(conexao)
         elif opcao == 6:
+            atualiza_produto(conexao)
+        elif opcao == 7:
+            remove_categoria(conexao)
+        elif opcao == 8:
             remove_produto(conexao)
         else:
             print('Opção invalida!')
@@ -33,13 +58,13 @@ def menu_user_nivel01(conexao):
 #Menu interativo usuario nivel_02.
 def menu_user_nivel02(conexao):
     while True:
-        print('''
-        0) Sair
-        1) Inserir categoria
-        2) Inserir produto
-        3) Atualizar categoria
-        4) Atualizar produto
-        ''')
+        print("""Opções disponíveis para seu nível de acesso:
+        0) Sair                         5) Atualizar categoria
+        1) Visualizar as categorias     6) Atualizar produto
+        2) Visualizar os produtos       7) Remover categoria
+        3) Inserir categoria            8) Remover produto
+        4) Inserir produto
+        """)
         opcao = int(input('Digite a opção desejada:'))
         if opcao == 0:
             break
@@ -89,11 +114,7 @@ def inseri_categoria(conexao):
 def atualiza_categoria(conexao):    
     cursor = conexao.cursor()
 
-    sql = 'SELECT id, nome FROM categoria'
-    categorias = cursor.execute(sql)
-    print("Categorias disponíveis:")
-    for categoria in categorias:
-        print("ID:", categoria[0], "/Categoria:", categoria[1])
+    mostra_tabela_categoria(conexao)
 
     categoria_id = input("Digite o ID da categoria que deseja atualizar: ")
 
@@ -150,11 +171,7 @@ def inseri_produto(conexao):
 def atualiza_produto(conexao):
     cursor = conexao.cursor()
 
-    sql = 'SELECT id, nome, categoria_id FROM produto'
-    produto = cursor.execute(sql)
-    print("Produtos disponíveis:")
-    for produto in produto:
-        print("ID:", produto[0], "/Produto:", produto[1], "/Categoria ID:", produto[2])
+    mostra_tabela_produto(conexao)
 
     produto_id = input("Digite o ID do produto que deseja atualizar: ")
 
