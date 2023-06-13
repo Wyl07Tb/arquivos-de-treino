@@ -5,9 +5,8 @@ import sqlite3
 conexao = sqlite3.connect('Banco.sqlite3')
 cursor = conexao.cursor()
 #-------------------------------
-menu_user_nivel01(conexao)
+
+#cria_tabela(conexao)
+#deleta_tabela(conexao)
 #-------------------------------
 conexao.close()
-
-#-------------------------------
-

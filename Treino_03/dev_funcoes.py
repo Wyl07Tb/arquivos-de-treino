@@ -38,13 +38,20 @@ def banco_versao_inicial():
 def cria_tabela(conexao):
 	cursor = conexao.cursor()
 	nome_da_tabela = input('Digite o nome da nova tabela:')
-	sql = f"""
-    CREATE TABLE IF NOT EXISTS {nome_da_tabela}(
-        id INTEGER PRIMARY KEY AUTOINCREMENT
-    );
-    """
+	sql = f"CREATE TABLE IF NOT EXISTS {nome_da_tabela}"
 	cursor.execute(sql)
-	conexao.commit()
+
+	while True:
+		add_coluna = input('Adicionar coluna: S / N')
+		if add_coluna == 's' or 'S':
+			coluna = input('Digite o nome da coluna e suas características:\n	Exemplo: id INTEGER PRIMARY KEY AUTOINCREMENT')
+			cursor.execute(f'ALTER TABLE {nome_da_tabela} ADD COLUMN {coluna}')
+
+		elif add_coluna == 'n' or 'N':
+			conexao.commit()
+			
+		else:
+			print('Para escolher digite: S ou N!')
 
 def deleta_tabela(conexao):
 	cursor = conexao.cursor()

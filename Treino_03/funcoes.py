@@ -1,5 +1,6 @@
 import sqlite3
 
+#Mostra o conteudo da tabela categori.
 def mostra_tabela_categoria(conexao):
     cursor = conexao.cursor()
     sql = 'SELECT id, nome FROM categoria'
@@ -9,6 +10,7 @@ def mostra_tabela_categoria(conexao):
         print("ID:", categoria[0], "/Categoria:", categoria[1])
     conexao.commit()
 
+#Mostra o conteudo da tabela produto.
 def mostra_tabela_produto(conexao):
     cursor = conexao.cursor()
     sql = 'SELECT id, nome, categoria_id FROM produto'
@@ -18,6 +20,7 @@ def mostra_tabela_produto(conexao):
         print("ID:", produto[0], "/Produto:", produto[1], "/Categoria ID:", produto[2])
     conexao.commit()
 
+#Define o menu interativo a mostrar de acordo com o nível do usuario.
 def opcao_disponinel_por_nivel(acesso):
     opcao = ['0:Sair', '1:Visualizar as categorias', '2:Visualizar os produtos', 
     '3:Inserir categoria', '4:Inserir produto', '5:Atualizar categoria',
@@ -58,42 +61,52 @@ def menu_user_nivel01(conexao):
 #Menu interativo usuario nivel_02.
 def menu_user_nivel02(conexao):
     while True:
-        print("""Opções disponíveis para seu nível de acesso:
-        0) Sair                         5) Atualizar categoria
-        1) Visualizar as categorias     6) Atualizar produto
-        2) Visualizar os produtos       7) Remover categoria
-        3) Inserir categoria            8) Remover produto
-        4) Inserir produto
-        """)
-        opcao = int(input('Digite a opção desejada:'))
+        print('Opções disponíveis para seu nível de acesso:')
+        opcao = opcao_disponinel_por_nivel(7)
         if opcao == 0:
             break
         elif opcao == 1:
-            inseri_categoria(conexao)
+            mostra_tabela_categoria(conexao)
         elif opcao == 2:
-            inseri_produto(conexao)
+            mostra_tabela_produto(conexao)
         elif opcao == 3:
-            atualiza_categoria(conexao)
+            inseri_categoria(conexao)
         elif opcao == 4:
+            inseri_produto(conexao)
+        elif opcao == 5:
+            atualiza_categoria(conexao)
+        elif opcao == 6:
             atualiza_produto(conexao)
+#        elif opcao == 7:
+#            remove_categoria(conexao)
+#        elif opcao == 8:
+#            remove_produto(conexao)
         else:
             print('Opção invalida!')
 
 #Menu interativo usuario nivel_03.
 def menu_user_nivel03(conexao):
     while True:
-        print('''
-        0) Sair
-        1) Inserir categoria
-        2) Inserir produto
-        ''')
-        opcao = int(input('Digite a opção desejada:'))
+        print('Opções disponíveis para seu nível de acesso:')
+        opcao = opcao_disponinel_por_nivel(9)
         if opcao == 0:
             break
         elif opcao == 1:
-            inseri_categoria(conexao)
+            mostra_tabela_categoria(conexao)
         elif opcao == 2:
+            mostra_tabela_produto(conexao)
+        elif opcao == 3:
+            inseri_categoria(conexao)
+        elif opcao == 4:
             inseri_produto(conexao)
+#        elif opcao == 5:
+#            atualiza_categoria(conexao)
+#        elif opcao == 6:
+#            atualiza_produto(conexao)
+#        elif opcao == 7:
+#            remove_categoria(conexao)
+#        elif opcao == 8:
+#            remove_produto(conexao)
         else:
             print('Opção invalida!')
 
