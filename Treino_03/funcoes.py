@@ -1,5 +1,15 @@
 import sqlite3
 
+#Mostra o conteudo da tabela fornecedor.
+def mostra_tabela_fornecedor(conexao):
+    cursor = conexao.cursor()
+    sql = 'SELECT id, nome, email, telefone, nota FROM fornecedor'
+    fornecedores = cursor.execute(sql)
+    print("Fornecedores cadastrados:")
+    for fornecedor in fornecedores:
+        print("ID:", fornecedor[0], "/Nome:", fornecedor[1], "/E-mail:", fornecedor[2], "/Telefone:", fornecedor[3], "/Nota:", fornecedor[4])
+    conexao.commit()
+
 #Mostra o conteudo da tabela categori.
 def mostra_tabela_categoria(conexao):
     cursor = conexao.cursor()
@@ -13,11 +23,11 @@ def mostra_tabela_categoria(conexao):
 #Mostra o conteudo da tabela produto.
 def mostra_tabela_produto(conexao):
     cursor = conexao.cursor()
-    sql = 'SELECT id, nome, categoria_id FROM produto'
+    sql = 'SELECT id, nome, descricao, preco FROM produto'
     produto = cursor.execute(sql)
     print("Produtos disponíveis:")
     for produto in produto:
-        print("ID:", produto[0], "/Produto:", produto[1], "/Categoria ID:", produto[2])
+        print("ID:", produto[0], "/Produto:", produto[1], "/Descrição:", produto[2], "/Preço:", produto[3])
     conexao.commit()
 
 #Define o menu interativo a mostrar de acordo com o nível do usuario.
@@ -216,3 +226,7 @@ def remove_produto(conexao):
 
     conexao.commit()
     print('Produto removido com SUCESSO!')
+
+def troca_id_por_nome_no_print(conexao):
+    cursor = conexao.cursor()
+    
