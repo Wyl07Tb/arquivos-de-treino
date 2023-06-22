@@ -1,9 +1,8 @@
 #Imports do programa e conexao do banco.
 from funcoes import *
 from dev_funcoes import *
-import sqlite3
-conexao = sqlite3.connect('Banco.sqlite3')
-cursor = conexao.cursor()
+
+# def ..... código que chama as funcoes!
 #-------------------------------
 
 #cria_tabela(conexao)
@@ -13,4 +12,3 @@ cursor = conexao.cursor()
 #atera_nome_da_tabela(conexao)
 
 #-------------------------------
-conexao.close()

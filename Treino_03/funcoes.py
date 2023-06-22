@@ -1,34 +1,30 @@
 import sqlite3
+conexao = sqlite3.connect("db.sqlite3")
+cursor = conexao.cursor()
 
 #Mostra o conteudo da tabela fornecedor.
-def mostra_tabela_fornecedor(conexao):
-    cursor = conexao.cursor()
+def mostra_tabela_fornecedor():
     sql = 'SELECT id, nome, email, telefone, nota FROM fornecedor'
     fornecedores = cursor.execute(sql)
     print("Fornecedores cadastrados:")
     for fornecedor in fornecedores:
         print("ID:", fornecedor[0], "/Nome:", fornecedor[1], "/E-mail:", fornecedor[2], "/Telefone:", fornecedor[3], "/Nota:", fornecedor[4])
-    conexao.commit()
 
 #Mostra o conteudo da tabela categori.
-def mostra_tabela_categoria(conexao):
-    cursor = conexao.cursor()
+def mostra_tabela_categoria():
     sql = 'SELECT id, nome FROM categoria'
     categorias = cursor.execute(sql)
     print("Categorias disponíveis:")
     for categoria in categorias:
         print("ID:", categoria[0], "/Categoria:", categoria[1])
-    conexao.commit()
 
 #Mostra o conteudo da tabela produto.
-def mostra_tabela_produto(conexao):
-    cursor = conexao.cursor()
+def mostra_tabela_produto():
     sql = 'SELECT id, nome, descricao, preco FROM produto'
     produto = cursor.execute(sql)
     print("Produtos disponíveis:")
     for produto in produto:
         print("ID:", produto[0], "/Produto:", produto[1], "/Descrição:", produto[2], "/Preço:", produto[3])
-    conexao.commit()
 
 #Define o menu interativo a mostrar de acordo com o nível do usuario.
 def opcao_disponinel_por_nivel(acesso):
@@ -37,56 +33,56 @@ def opcao_disponinel_por_nivel(acesso):
     '6:Atualizar produto', '7:Remover categoria', '8:Remover produto']
     
     for opcao in opcao[0:acesso]:
-                print(opcao)
+        print(opcao)
     
     selecao = int(input('Digite a opção dezejada:'))
     return selecao
 
 #Menu interativo usuario nivel_01.
-def menu_user_nivel01(conexao):
+def menu_user_nivel01():
     while True:
         print('Opções disponíveis para seu nível de acesso:')
         opcao = opcao_disponinel_por_nivel(9)
         if opcao == 0:
             break
         elif opcao == 1:
-            mostra_tabela_categoria(conexao)
+            mostra_tabela_categoria()
         elif opcao == 2:
-            mostra_tabela_produto(conexao)
+            mostra_tabela_produto()
         elif opcao == 3:
-            inseri_categoria(conexao)
+            inseri_categoria()
         elif opcao == 4:
-            inseri_produto(conexao)
+            inseri_produto()
         elif opcao == 5:
-            atualiza_categoria(conexao)
+            atualiza_categoria()
         elif opcao == 6:
-            atualiza_produto(conexao)
+            atualiza_produto()
         elif opcao == 7:
-            remove_categoria(conexao)
+            remove_categoria()
         elif opcao == 8:
-            remove_produto(conexao)
+            remove_produto()
         else:
             print('Opção invalida!')
 
 #Menu interativo usuario nivel_02.
-def menu_user_nivel02(conexao):
+def menu_user_nivel02():
     while True:
         print('Opções disponíveis para seu nível de acesso:')
         opcao = opcao_disponinel_por_nivel(7)
         if opcao == 0:
             break
         elif opcao == 1:
-            mostra_tabela_categoria(conexao)
+            mostra_tabela_categoria()
         elif opcao == 2:
-            mostra_tabela_produto(conexao)
+            mostra_tabela_produto()
         elif opcao == 3:
-            inseri_categoria(conexao)
+            inseri_categoria()
         elif opcao == 4:
-            inseri_produto(conexao)
+            inseri_produto()
         elif opcao == 5:
-            atualiza_categoria(conexao)
+            atualiza_categoria()
         elif opcao == 6:
-            atualiza_produto(conexao)
+            atualiza_produto()
 #        elif opcao == 7:
 #            remove_categoria(conexao)
 #        elif opcao == 8:
@@ -95,20 +91,20 @@ def menu_user_nivel02(conexao):
             print('Opção invalida!')
 
 #Menu interativo usuario nivel_03.
-def menu_user_nivel03(conexao):
+def menu_user_nivel03():
     while True:
         print('Opções disponíveis para seu nível de acesso:')
         opcao = opcao_disponinel_por_nivel(9)
         if opcao == 0:
             break
         elif opcao == 1:
-            mostra_tabela_categoria(conexao)
+            mostra_tabela_categoria()
         elif opcao == 2:
-            mostra_tabela_produto(conexao)
+            mostra_tabela_produto()
         elif opcao == 3:
-            inseri_categoria(conexao)
+            inseri_categoria()
         elif opcao == 4:
-            inseri_produto(conexao)
+            inseri_produto()
 #        elif opcao == 5:
 #            atualiza_categoria(conexao)
 #        elif opcao == 6:
@@ -121,23 +117,18 @@ def menu_user_nivel03(conexao):
             print('Opção invalida!')
 
 #Inseri uma categoria.
-def inseri_categoria(conexao):
-    cursor = conexao.cursor()
-
+def inseri_categoria():
     nome = input("Digite o nome da categoria: ")
 
     sql = 'INSERT INTO categoria(nome) VALUES(?)'
     valores = [nome]
     cursor.execute(sql,valores)
 
-    conexao.commit()
     print('Categoria inserida com SUCESSO!')
 
 #Atualiza uma categoria.
-def atualiza_categoria(conexao):    
-    cursor = conexao.cursor()
-
-    mostra_tabela_categoria(conexao)
+def atualiza_categoria():    
+    mostra_tabela_categoria()
 
     categoria_id = input("Digite o ID da categoria que deseja atualizar: ")
 
@@ -147,12 +138,10 @@ def atualiza_categoria(conexao):
     valores = [nome, categoria_id]
     cursor.execute(sql, valores)
 
-    conexao.commit()
     print('Categoria atualizada com SUCESSO!')
 
 #Remove uma categoia
-def remove_categoria(conexao):
-    cursor = conexao.cursor()
+def remove_categoria():
 
     sql = 'SELECT id, nome FROM categoria'
     categorias = cursor.execute(sql)
@@ -166,12 +155,10 @@ def remove_categoria(conexao):
     valores = [categoria_id]
     cursor.execute(sql, valores)
 
-    conexao.commit()
     print('Categoria removida com SUCESSO!')
 
 #Inseri um produto.
-def inseri_produto(conexao):
-    cursor = conexao.cursor()
+def inseri_produto():
 
     nome = input("Digite o nome do produto: ")
 
@@ -187,14 +174,11 @@ def inseri_produto(conexao):
     valores = [nome,categoria_id]
     cursor.execute(sql,valores)
 
-    conexao.commit()
     print('Produto inserido com SUCESSO!')
 
 #Atualiza um produto
-def atualiza_produto(conexao):
-    cursor = conexao.cursor()
-
-    mostra_tabela_produto(conexao)
+def atualiza_produto():
+    mostra_tabela_produto()
 
     produto_id = input("Digite o ID do produto que deseja atualizar: ")
 
@@ -205,12 +189,10 @@ def atualiza_produto(conexao):
     valores = [nome, categoria_id, produto_id]
     cursor.execute(sql, valores)
 
-    conexao.commit()
     print('Produto atualizado com SUCESSO!')
 
 #Remove um produto.
-def remove_produto(conexao):
-    cursor = conexao.cursor()
+def remove_produto():
 
     sql = 'SELECT id, nome, categoria_id FROM produtos'
     produtos = cursor.execute(sql)
@@ -224,9 +206,9 @@ def remove_produto(conexao):
     valores = [produto_id]
     cursor.execute(sql, valores)
 
-    conexao.commit()
     print('Produto removido com SUCESSO!')
 
-def troca_id_por_nome_no_print(conexao):
-    cursor = conexao.cursor()
-    
+# def troca_id_por_nome_no_print():
+
+conexao.commit()
+conexao.close()
