@@ -211,4 +211,3 @@ def remove_produto():
 # def troca_id_por_nome_no_print():
 
 conexao.commit()
-conexao.close()
