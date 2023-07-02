@@ -1,6 +1,7 @@
 #Imports do programa e conexao do banco.
 from funcoes import *
 from dev_funcoes import *
+from niveis_de_acesso import *
 
 # def ..... código que chama as funcoes!
 #-------------------------------
